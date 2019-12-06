@@ -3,7 +3,6 @@ from timeit import default_timer as timer
 from utils.time import get_time
 
 
-# simply a two dimensional array of who is parent of who.
 def get_parent_tree(m):
     t = dict()
     for o in m:
@@ -37,10 +36,18 @@ def calc_orbits(t):
     return orbits
 
 
+def get_moves(t, o1, o2):
+    y = set(get_parents(t, o1))
+    s = set(get_parents(t, o2))
+    return len(y.union(s) - y.intersection(s))
+
+
 if __name__ == "__main__":
     with open('input/day06.txt') as f:
         m = f.read().splitlines()
     t = get_parent_tree(m)
     start = timer()
-    print("result day 06 part 1: {} in {}".format(
-        calc_orbits(t), get_time(start)))
+    print("result day 06 part 1: {} in {}".format(calc_orbits(t), get_time(start)))
+
+    start = timer()
+    print("result day 06 part 2: {} in {}".format(get_moves(t, "YOU", "SAN"), get_time(start)))

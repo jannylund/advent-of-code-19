@@ -25,10 +25,12 @@ def split_instruction(instruction):
     return opcode, mode_p1, mode_p2
 
 
-def intcode(code, pos=None, input=1, output=None):
+def intcode(code, pos=None, input=None, output=None):
     if pos is None or output is None:
         pos = 0
         output = []
+    if input is None:
+        input = [1]
 
     if code[pos] == 99:
         return (code, output)
@@ -51,7 +53,7 @@ def intcode(code, pos=None, input=1, output=None):
     elif opcode is OPCODE_SAVE_INPUT:
         step = 2
         out = code[pos+1]
-        code[out] = input
+        code[out] = input.pop(0)
 
     elif opcode is OPCODE_PRINT_OUTPUT:
         step = 2

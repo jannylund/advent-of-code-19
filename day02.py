@@ -1,7 +1,7 @@
 from timeit import default_timer as timer
 from utils.time import get_time
 
-
+# This could use the common intcode implementation but it's slower because of the parameter check. :/
 def intcode(code, pos=0):
     opcode = code[pos]
     if opcode == 99:
